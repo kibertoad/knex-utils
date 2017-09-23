@@ -8,6 +8,12 @@
     "lint": "eslint . --cache",
     "test-coverage": "nyc npm test"
   },
+  "maintainers": [
+    {
+      "name": "igorsavin",
+      "email": "kibertoad@gmail.com"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/kibertoad/knex-utils.git"
