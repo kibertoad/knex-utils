@@ -16,6 +16,7 @@ class KnexHelper {
    * @param {number} config.minPoolSize
    * @param {number} config.maxPoolSize
    * @param {object} logger
+   * @param {object} config.heartbeatQuery
    */
   constructor(config, logger) {
     this.config = validate.notNil(config);
@@ -37,7 +38,7 @@ class KnexHelper {
 
   _initKnexInstance() {
     let knex = this._initKnexConnection();
-    _checkHeartbeat(this.logger, knex);
+    _checkHeartbeat(this.logger, knex, this.config.heartbeatQuery);
     return knex;
   }
 
