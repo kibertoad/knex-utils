@@ -21,9 +21,7 @@ function migrateDb(migrationDirectory, tableName = 'migrations') {
 
   const config = {
     directory: migrationDirectory,
-    migrations: {
-      tableName: tableName
-    }
+    tableName: tableName
   };
 
   return knexHelper.getKnexInstance().migrate.latest(config)
