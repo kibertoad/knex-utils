@@ -3,5 +3,4 @@ build/*
 coverage/*
 .idea/
 nohup.out
-package-lock.json
 .eslintcache
