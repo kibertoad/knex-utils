@@ -11,14 +11,14 @@ let knexHelperInstance;
  * @param [logger]
  * @param [reload=true]
  */
-function getInstance(config = dbConfig.getConfig(), logger = dbConfig.getLogger(), reload=false) {
+function getInstance(config, logger = dbConfig.getLogger(), reload = false) {
   if (reload) {
     knexHelperInstance && knexHelperInstance.destroyKnexInstance();
     knexHelperInstance = undefined;
   }
 
-  if (!knexHelperInstance ) {
-    knexHelperInstance = new KnexHelper(config, logger);
+  if (!knexHelperInstance) {
+    knexHelperInstance = new KnexHelper(config || dbConfig.getConfig(), logger);
   }
   return knexHelperInstance;
 }
