@@ -1,5 +1,3 @@
-'use strict';
-
 let dbLogger = console,
   dbConfig;
 
@@ -43,4 +41,6 @@ function getLogger() {
 }
 
 
-module.exports = {setConfig, getConfig, setLogger, getLogger};
+module.exports = {
+  setConfig, getConfig, setLogger, getLogger
+};

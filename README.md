@@ -30,6 +30,7 @@ gulp.task('seedDb', (cb) => {
 });
 
 ##Example of a usage inside actual application
+##Note that you should use 'filename' param instead of username/hostname/password for SQLite dbs
 
 knex.instance.js:
 

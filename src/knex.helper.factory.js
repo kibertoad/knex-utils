@@ -1,7 +1,6 @@
-'use strict';
-
 const dbConfig = require('./db-config');
 const KnexHelper = require('./knex.helper');
+
 let knexHelperInstance;
 
 /**
