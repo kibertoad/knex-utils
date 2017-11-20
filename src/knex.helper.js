@@ -1,3 +1,5 @@
+'use strict';
+
 const Knex = require('knex');
 const validate = require('validation-utils');
 
@@ -45,21 +47,20 @@ class KnexHelper {
     validate.notNil(this.config, 'Config is null or undefined');
     let client = validate.notNil(this.config.client, 'DB client is null or undefined');
     let username = validate.notNil(this.config.username, 'Username is null or undefined');
-    let hostname = this.config.hostname;
-    let database = this.config.database;
-    let connectionTimeout = this.config.connectionTimeout;
+    let hostname = validate.notNil(this.config.hostname, 'Hostname is null or undefined');
+    let database = validate.notNil(this.config.database, 'Database is null or undefined');
+    let connectionTimeout = validate.notNil(this.config.connectionTimeout, 'Connection timeout is null or undefined');
 
     this.logger.info('Init db: ' + username + '/<Password omitted>' + '@' + hostname + '/' + database);
     this.logger.info('Timeout: ' + connectionTimeout);
 
     return Knex({
-      client,
+      client: client,
       connection: {
         host: hostname,
         user: username,
-        password: this.config.password,
-        database,
-        filename: this.config.filename
+        password: validate.notNil(this.config.password),
+        database: database
       },
       pool: {
         min: validate.notNil(this.config.minPoolSize),
