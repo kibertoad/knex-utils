@@ -57,14 +57,14 @@ function seedDb(seedDirectory) {
  * @param {string[]} tableNames - array of table names
  * @returns {Promise}
  */
-function cleanDb(tableNames) {
+function cleanDb(tableNames, knex, logger) {
   validate.notNil(tableNames);
+  knex = knex || knexHelperFactory.getInstance().getKnexInstance();
+  logger = logger || dbConfig.getLogger();
 
-  let logger = dbConfig.getLogger();
-  let knexHelper = knexHelperFactory.getInstance();
   let cleaner = new TableCleaner();
 
-  return cleaner.cleanTables(knexHelper.getKnexInstance(), tableNames)
+  return cleaner.cleanTables(knex, tableNames)
     .then(() => logger.info('Tables cleaned successfully: ', tableNames.join(', ')))
     .catch((err) => logger.error('Error cleaning tables', err));
 }
