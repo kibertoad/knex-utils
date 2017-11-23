@@ -66,7 +66,7 @@ class KnexHelper {
         max: validate.notNil(this.config.maxPoolSize)
       },
       acquireConnectionTimeout: connectionTimeout
-    });
+    }, this.config.postProcessResponse, this.config.wrapIdentifier);
   }
 
   /**
