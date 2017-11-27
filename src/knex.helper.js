@@ -2,8 +2,7 @@ const Knex = require('knex');
 const validate = require('validation-utils');
 
 class KnexHelper {
-
-    /**
+  /**
      *
      * @param {object} config
      * @param {string} config.username
@@ -16,100 +15,83 @@ class KnexHelper {
      * @param {object} logger
      * @param {object} config.heartbeatQuery
      */
-    constructor(config, logger) {
-        this.config = validate.notNil(config);
-        this.logger = validate.notNil(logger);
-        this.knex = this._initKnexInstance(this.config, this.logger);
-    }
+  constructor(config, logger) {
+    this.config = validate.notNil(config);
+    this.logger = validate.notNil(logger);
+    this.knex = this._initKnexInstance();
+  }
 
-    /**
+  /**
      * Returns a knex instance, if there is no preinitialized one - creates new one
      * @returns {undefined|*}
      */
-    getKnexInstance() {
-        if (!this.knex) {
-            this.knex = this._initKnexInstance(this.config, this.logger);
-        }
-
-        return this.knex;
+  getKnexInstance() {
+    if (!this.knex) {
+      this.knex = this._initKnexInstance(this.config, this.logger);
     }
 
-    _initKnexInstance() {
-        let knex = this._initKnexConnection();
-        _checkHeartbeat(this.logger, knex, this.config.heartbeatQuery);
-        return knex;
-    }
+    return this.knex;
+  }
 
-    _initKnexConnection() {
-        validate.notNil(this.logger, 'Logger is null or undefined');
-        validate.notNil(this.config, 'Config is null or undefined');
-        let client = validate.notNil(this.config.client, 'DB client is null or undefined');
-        let username = validate.notNil(this.config.username, 'Username is null or undefined');
-        let hostname = this.config.hostname;
-        let database = this.config.database;
-        let connectionTimeout = this.config.connectionTimeout;
+  _initKnexInstance() {
+    const knex = this._initKnexConnection();
+    _checkHeartbeat(this.logger, knex, this.config.heartbeatQuery);
+    return knex;
+  }
 
-        this.logger.info('Init db: ' + username + '/<Password omitted>' + '@' + hostname + '/' + database);
-        this.logger.info('Timeout: ' + connectionTimeout);
+  _initKnexConnection() {
+    validate.notNil(this.logger, 'Logger is null or undefined');
+    validate.notNil(this.config, 'Config is null or undefined');
+    validate.notNil(this.config.client, 'DB client is null or undefined');
 
-        return Knex({
-            client,
-            connection: {
-                host: hostname,
-                user: username,
-                password: this.config.password,
-                database,
-                filename: this.config.filename
-            },
-            pool: {
-                min: validate.notNil(this.config.minPoolSize),
-                max: validate.notNil(this.config.maxPoolSize)
-            },
-            acquireConnectionTimeout: connectionTimeout,
-            postProcessResponse: this.config.postProcessResponse,
-            wrapIdentifier: this.config.wrapIdentifier
-        });
-    }
+    const { hostname, database } = this.config.connection;
+    const username = validate.notNil(this.config.connection.user, 'Username is null or undefined');
+    const connectionTimeout = this.config.acquireConnectionTimeout;
 
-    /**
+    this.logger.info(`Init db: ${username}/<Password omitted>@${hostname}/${database}`);
+    this.logger.info(`Timeout: ${connectionTimeout}`);
+
+    return Knex(this.config);
+  }
+
+  /**
      * Destroy knex instance and release connection
      * @returns {*}
      */
-    destroyKnexInstance() {
-        let destroyPromise;
-        if (this.knex) {
-            destroyPromise = this.knex.destroy();
-        } else {
-            destroyPromise = Promise.resolve();
-        }
-        this.knex = undefined;
-        return destroyPromise;
+  destroyKnexInstance() {
+    let destroyPromise;
+    if (this.knex) {
+      destroyPromise = this.knex.destroy();
+    } else {
+      destroyPromise = Promise.resolve();
     }
+    this.knex = undefined;
+    return destroyPromise;
+  }
 
 
-    /**
+  /**
      * Try to perform simple SQL query and log error if it fails
      */
-    checkHeartbeat() {
-        return _checkHeartbeat(this.logger, this.knex, this.config.heartbeatQuery);
-    }
-
+  checkHeartbeat() {
+    return _checkHeartbeat(this.logger, this.knex, this.config.heartbeatQuery);
+  }
 }
 
 function _checkHeartbeat(logger, knex, heartbeatQuery) {
-    if (!knex) {
-        logger.info('Knex not initialized yet, skipping DB heartbeat check');
-        return Promise.resolve(false);
-    }
+  if (!knex) {
+    logger.info('Knex not initialized yet, skipping DB heartbeat check');
+    return Promise.resolve(false);
+  }
 
-    return knex.raw(heartbeatQuery || 'select 1 from DUAL')
-        .then(() => {
-            logger.info('DB heartbeat is OK.');
-            return true;
-        }).catch((e) => {
-            logger.error(e);
-            throw new Error ('DB has failed heartbeat check');
-        });
+  return knex.raw(heartbeatQuery || 'select 1 from DUAL')
+    .then(() => {
+      logger.info('DB heartbeat is OK.');
+      return true;
+    }).catch((e) => {
+      logger.error(e);
+      throw new Error('DB has failed heartbeat check');
+    });
 }
 
 module.exports = KnexHelper;

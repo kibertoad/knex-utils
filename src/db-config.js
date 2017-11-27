@@ -7,9 +7,10 @@ const DEFAULT_DB = 'default';
  * Set db config
  *
  * @param {Object} config
+ * @param {string} [dbKey]
  */
 function setConfig(config, dbKey = DEFAULT_DB) {
-    dbConfMap.set(dbKey, config);
+  dbConfMap.set(dbKey, config);
 }
 
 /**
@@ -18,11 +19,11 @@ function setConfig(config, dbKey = DEFAULT_DB) {
  * @returns {Object}
  */
 function getConfig(dbKey = DEFAULT_DB) {
-    const dbConfig = dbConfMap.get(dbKey);
-    if (!dbConfig) {
-        throw new Error('DB module is not configured');
-    }
-    return dbConfig;
+  const dbConfig = dbConfMap.get(dbKey);
+  if (!dbConfig) {
+    throw new Error('DB module is not configured');
+  }
+  return dbConfig;
 }
 
 /**
@@ -31,7 +32,7 @@ function getConfig(dbKey = DEFAULT_DB) {
  * @param {Object} logger
  */
 function setLogger(logger) {
-    dbLogger = logger;
+  dbLogger = logger;
 }
 
 /**
@@ -40,14 +41,14 @@ function setLogger(logger) {
  * @returns {Object} logger
  */
 function getLogger() {
-    return dbLogger;
+  return dbLogger;
 }
 
 
 module.exports = {
-    DEFAULT_DB,
-    setConfig,
-    getConfig,
-    setLogger,
-    getLogger
+  DEFAULT_DB,
+  setConfig,
+  getConfig,
+  setLogger,
+  getLogger
 };

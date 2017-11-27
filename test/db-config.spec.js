@@ -4,11 +4,14 @@ const expect = require('chai').expect;
 const dbConfig = require('../src/db-config');
 
 describe('DB utils config', () => {
-  let configData = {
-    username: 'user',
-    password: 'password',
-    hostname: 'host',
-    database: 'database'
+  const configData = {
+    connection: {
+      host: 'host',
+      user: 'user',
+      password: 'password',
+      database: 'database'
+    }
+
   };
 
   it('should throw exception if config not set', () => {
@@ -26,8 +29,8 @@ describe('DB utils config', () => {
   });
 
   it('should set and get logger', () => {
-    let originalLogger = dbConfig.getLogger();
-    let logger = function () {
+    const originalLogger = dbConfig.getLogger();
+    const logger = function () {
     };
 
     dbConfig.setLogger(logger);
