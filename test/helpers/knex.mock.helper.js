@@ -2,7 +2,7 @@
 
 class MockKnex {
   constructor() {
-    this.catchBlock = function (e) {
+    this.catchBlock = (e) => {
       throw e;
     };
   }
@@ -59,7 +59,6 @@ class MockKnex {
     this.catchBlock = catchBlock;
     return this;
   }
-
 }
 
 class ThrowingMockKnex extends MockKnex {
@@ -70,7 +69,6 @@ class ThrowingMockKnex extends MockKnex {
 
     return result;
   }
-
 }
 
 class ResolvingMockKnex extends MockKnex {
@@ -83,32 +81,10 @@ class ResolvingMockKnex extends MockKnex {
 
     return result;
   }
-
-}
-
-
-/**
- *
- * @param sinon
- * @param knex - instance of real knex
- */
-function stubKnexToThrow(sinon, knex) {
-  initKnexStubs(sinon, knex, new ThrowingMockKnex);
-}
-
-/**
- *
- * @param sinon
- * @param knex - instance of real knex
- */
-function stubKnexToResolve(sinon, knex) {
-  initKnexStubs(sinon, knex, new ResolvingMockKnex);
 }
 
 function initKnexStubs(sinon, knex, mockKnex) {
-  const mockKnexFn = function () {
-    return mockKnex;
-  };
+  const mockKnexFn = () => mockKnex;
 
   sinon.stub(knex, 'select').callsFake(mockKnexFn);
   sinon.stub(knex, 'del').callsFake(mockKnexFn);
@@ -118,4 +94,24 @@ function initKnexStubs(sinon, knex, mockKnex) {
   sinon.stub(knex, 'raw').callsFake(mockKnexFn);
 }
 
-module.exports = {stubKnexToThrow, stubKnexToResolve, ThrowingMockKnex, ResolvingMockKnex};
+/**
+ *
+ * @param sinon
+ * @param knex - instance of real knex
+ */
+function stubKnexToThrow(sinon, knex) {
+  initKnexStubs(sinon, knex, new ThrowingMockKnex());
+}
+
+/**
+ *
+ * @param sinon
+ * @param knex - instance of real knex
+ */
+function stubKnexToResolve(sinon, knex) {
+  initKnexStubs(sinon, knex, new ResolvingMockKnex());
+}
+
+module.exports = {
+  stubKnexToThrow, stubKnexToResolve, ThrowingMockKnex, ResolvingMockKnex
+};

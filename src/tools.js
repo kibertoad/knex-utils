@@ -1,5 +1,3 @@
-'use strict';
-
 const knexHelperFactory = require('./knex.helper.factory');
 const validate = require('validation-utils');
 const dbConfig = require('./db-config');
@@ -16,16 +14,16 @@ function migrateDb(migrationDirectory, tableName = 'migrations') {
   validate.notNil(migrationDirectory);
   validate.notNil(tableName);
 
-  let logger = dbConfig.getLogger();
-  let knexHelper = knexHelperFactory.getInstance();
+  const logger = dbConfig.getLogger();
+  const knexHelper = knexHelperFactory.getInstance();
 
   const config = {
     directory: migrationDirectory,
-    tableName: tableName
+    tableName
   };
 
   return knexHelper.getKnexInstance().migrate.latest(config)
-    .then(migrationResult => logger.info('Successfully updated database to version: ' + migrationResult))
+    .then(migrationResult => logger.info(`Successfully updated database to version: ${migrationResult}`))
     .catch(err => logger.error(err));
 }
 
@@ -38,8 +36,8 @@ function migrateDb(migrationDirectory, tableName = 'migrations') {
 function seedDb(seedDirectory) {
   validate.notNil(seedDirectory);
 
-  let logger = dbConfig.getLogger();
-  let knexHelper = knexHelperFactory.getInstance();
+  const logger = dbConfig.getLogger();
+  const knexHelper = knexHelperFactory.getInstance();
 
   const config = {
     directory: seedDirectory
@@ -62,11 +60,11 @@ function cleanDb(tableNames, knex, logger) {
   knex = knex || knexHelperFactory.getInstance().getKnexInstance();
   logger = logger || dbConfig.getLogger();
 
-  let cleaner = new TableCleaner();
+  const cleaner = new TableCleaner();
 
   return cleaner.cleanTables(knex, tableNames)
     .then(() => logger.info('Tables cleaned successfully: ', tableNames.join(', ')))
-    .catch((err) => logger.error('Error cleaning tables', err));
+    .catch(err => logger.error('Error cleaning tables', err));
 }
 
 
@@ -77,5 +75,7 @@ function closeConnection() {
   return knexHelperFactory.getInstance().destroyKnexInstance();
 }
 
-module.exports = {migrateDb, seedDb, cleanDb, closeConnection};
+module.exports = {
+  migrateDb, seedDb, cleanDb, closeConnection
+};
 

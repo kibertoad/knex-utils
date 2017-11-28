@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-expressions */
+
 'use strict';
 
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const dbConfig = require('../src/db-config');
 
 describe('DB utils config', () => {
@@ -30,7 +32,7 @@ describe('DB utils config', () => {
 
   it('should set and get logger', () => {
     const originalLogger = dbConfig.getLogger();
-    const logger = function () {
+    const logger = () => {
     };
 
     dbConfig.setLogger(logger);

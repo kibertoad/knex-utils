@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 const Knex = require('knex');
 const validate = require('validation-utils');
 
@@ -27,7 +28,7 @@ class KnexHelper {
      */
   getKnexInstance() {
     if (!this.knex) {
-      this.knex = this._initKnexInstance(this.config, this.logger);
+      this.knex = this._initKnexInstance();
     }
 
     return this.knex;
