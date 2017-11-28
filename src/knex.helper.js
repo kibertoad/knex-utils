@@ -35,12 +35,16 @@ class KnexHelper {
   }
 
   /**
-     * Works properly only on PostgreSQL, on MySQL only takes effect on next transaction
-     */
-  getReadonlyTransaction() {
+   * Works properly only on PostgreSQL, on MySQL only takes effect on next transaction
+   * Example of a queryFn:
+   * (trx) => {return trx.select(...);}
+   *
+   */
+  async executeInReadonlyTransaction(queryFn) {
     this.getKnexInstance().transaction(trx => trx
       .raw('set transaction isolation level repeatable read;')
-      .then(() => trx));
+      .then(() => trx))
+      .then(queryFn);
   }
 
   _initKnexInstance() {
