@@ -41,8 +41,8 @@ class KnexHelper {
      *
      */
   executeInReadonlyTransaction(queryFn) {
-    return this.getKnexInstance().transaction((trx) => {
-      trx.raw('set transaction isolation level repeatable read;');
+    return this.getKnexInstance().transaction(async (trx) => {
+      await trx.raw('SET TRANSACTION READ ONLY');
       return queryFn(trx);
     });
   }
