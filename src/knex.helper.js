@@ -34,6 +34,15 @@ class KnexHelper {
     return this.knex;
   }
 
+  /**
+     * Works properly only on PostgreSQL, on MySQL only takes effect on next transaction
+     */
+  getReadonlyTransaction() {
+    this.getKnexInstance().transaction(trx => trx
+      .raw('set transaction isolation level repeatable read;')
+      .then(() => trx));
+  }
+
   _initKnexInstance() {
     const knex = this._initKnexConnection();
     _checkHeartbeat(this.logger, knex, this.config.heartbeatQuery);
