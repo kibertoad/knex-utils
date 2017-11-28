@@ -1,6 +1,6 @@
 {
   "name": "knex-utils",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "knex.js utils",
   "main": "src/index.js",
   "scripts": {
