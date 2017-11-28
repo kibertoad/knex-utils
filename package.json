@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "mocha ./test",
-    "lint": "eslint . --cache",
+    "lint": "eslint . -f node_modules/eslint-html-reporter/reporter.js -o build/reports/eslint.html",
+    "lint-to-console": "eslint .",
     "test-coverage": "nyc npm test"
   },
   "license": "MIT",
@@ -29,6 +30,7 @@
     "chai": "^4.1.2",
     "eslint": "^4.12.0",
     "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-html-reporter": "^0.5.2",
     "eslint-plugin-import": "^2.8.0",
     "mocha": "^4.0.1",
     "nyc": "^11.3.0",

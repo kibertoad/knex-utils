@@ -3,7 +3,7 @@
 const factory = require('../src/knex.helper.factory');
 const KnexHelper = require('../src/knex.helper');
 const dbConfig = require('../src/db-config');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const sinon = require('sinon');
 const knexMockHelper = require('./helpers/knex.mock.helper');
 
