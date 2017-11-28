@@ -4,6 +4,7 @@
 
 const { expect } = require('chai');
 const dbConfig = require('../src/db-config');
+require('./helpers/test.bootstrap');
 
 describe('DB utils config', () => {
   const configData = {

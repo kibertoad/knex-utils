@@ -8,12 +8,12 @@ const KnexHelper = require('../src/knex.helper');
 const TableCleaner = require('knex-tablecleaner');
 const knexMockHelper = require('./helpers/knex.mock.helper');
 const knexHelperFactory = require('../src/knex.helper.factory');
+require('./helpers/test.bootstrap');
 
 describe('DB utils tools', () => {
   const mockedKnex = new knexMockHelper.ResolvingMockKnex();
 
   beforeEach((done) => {
-    global.sinon = sinon.sandbox.create();
     mockedKnex.destroy = sinon.spy();
     dbConfig.setConfig({});
 
@@ -22,10 +22,8 @@ describe('DB utils tools', () => {
     done();
   });
 
-  afterEach((done) => {
-    global.sinon.restore();
+  afterEach(() => {
     dbConfig.setConfig(undefined);
-    done();
   });
 
   it('should validate parameters for migrateDb', () => {

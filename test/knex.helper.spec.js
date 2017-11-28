@@ -1,10 +1,10 @@
 'use strict';
 
 const { expect } = require('chai');
-const sinon = require('sinon');
 const knexMockHelper = require('./helpers/knex.mock.helper');
 const KnexHelper = require('../src/knex.helper');
 const dummyLogger = require('./helpers/dummyLogger');
+require('./helpers/test.bootstrap');
 
 describe('Knex helper', () => {
   const testConfig = {
@@ -22,16 +22,6 @@ describe('Knex helper', () => {
       max: 1
     }
   };
-
-  beforeEach((done) => {
-    global.sinon = sinon.sandbox.create();
-    done();
-  });
-
-  afterEach((done) => {
-    global.sinon.restore();
-    done();
-  });
 
   it('Get a DB error while connecting', (done) => {
     process.prependOnceListener('unhandledRejection', (e) => {

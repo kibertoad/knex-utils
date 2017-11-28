@@ -63,7 +63,7 @@ class MockKnex {
 
 class ThrowingMockKnex extends MockKnex {
   then() {
-    let result = new Promise((resolve, reject) => {
+    const result = new Promise(() => {
       throw new Error('Stub exception');
     }).catch(this.catchBlock);
 
@@ -73,7 +73,7 @@ class ThrowingMockKnex extends MockKnex {
 
 class ResolvingMockKnex extends MockKnex {
   then(fn) {
-    let result = new Promise((resolve, reject) => {
+    const result = new Promise((resolve) => {
       resolve(true);
     })
       .then(() => fn())
