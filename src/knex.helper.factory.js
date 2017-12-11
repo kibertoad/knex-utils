@@ -28,4 +28,19 @@ function getInstance(config, logger = dbConfig.getLogger(), dbKey = dbConfig.DEF
   return knexHelperInstance;
 }
 
-module.exports = { getInstance };
+
+async function closeAllInstances() {
+  const mapIter = knexHelperInstanceMap.values();
+  let entry = mapIter.next();
+  while (!entry.done) {
+    const instance = entry.value;
+    await instance.destroyKnexInstance();
+    entry = mapIter.next();
+  }
+  knexHelperInstanceMap.clear();
+}
+
+module.exports = {
+  getInstance,
+  closeAllInstances
+};
