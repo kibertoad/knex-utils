@@ -34,7 +34,13 @@ async function closeAllInstances() {
   let entry = mapIter.next();
   while (!entry.done) {
     const instance = entry.value;
-    await instance.destroyKnexInstance();
+    try {
+      await instance.destroyKnexInstance();
+    } catch (e) {
+      if (instance && instance.logger) {
+        instance.logger.error('Error while closing DB: ', e);
+      }
+    }
     entry = mapIter.next();
   }
   knexHelperInstanceMap.clear();
