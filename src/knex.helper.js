@@ -19,7 +19,7 @@ class KnexHelper {
   constructor(config, logger) {
     this.config = validate.notNil(config);
     this.logger = validate.notNil(logger);
-    this.knex = this._initKnexInstance();
+    this.knex = this._initKnexConnection();
   }
 
   /**
@@ -28,29 +28,10 @@ class KnexHelper {
      */
   getKnexInstance() {
     if (!this.knex) {
-      this.knex = this._initKnexInstance();
+      this.knex = this._initKnexConnection();
     }
 
     return this.knex;
-  }
-
-  /**
-     * Works properly only on PostgreSQL, on MySQL only takes effect on next transaction
-     * Example of a queryFn:
-     * (trx) => {return trx.select(...);}
-     *
-     */
-  executeInReadonlyTransaction(queryFn) {
-    return this.getKnexInstance().transaction(async (trx) => {
-      await trx.raw('SET TRANSACTION READ ONLY');
-      return queryFn(trx);
-    });
-  }
-
-  _initKnexInstance() {
-    const knex = this._initKnexConnection();
-    _checkHeartbeat(this.logger, knex, this.config.heartbeatQuery);
-    return knex;
   }
 
   _initKnexConnection() {
@@ -58,11 +39,11 @@ class KnexHelper {
     validate.notNil(this.config, 'Config is null or undefined');
     validate.notNil(this.config.client, 'DB client is null or undefined');
 
-    const { hostname, database } = this.config.connection;
+    const { host, database } = this.config.connection;
     const username = validate.notNil(this.config.connection.user, 'Username is null or undefined');
     const connectionTimeout = this.config.acquireConnectionTimeout;
 
-    this.logger.info(`Init db: ${username}/<Password omitted>@${hostname}/${database}`);
+    this.logger.info(`Init db: ${username}/<Password omitted>@${host}/${database}`);
     this.logger.info(`Timeout: ${connectionTimeout}`);
 
     return Knex(this.config);

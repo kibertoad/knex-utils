@@ -1,6 +1,6 @@
 {
   "name": "knex-utils",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "knex.js utils",
   "main": "src/index.js",
   "scripts": {
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/kibertoad/knex-utils",
   "dependencies": {
-    "knex": "^0.14.2",
+    "knex": "^0.14.4",
     "knex-tablecleaner": "^2.0.5",
     "validation-utils": "^2.0.1"
   },
