@@ -1,7 +1,9 @@
-const heartbeatCheck = require('./lib/heartbeat.utils');
+const heartbeatChecker = require('./lib/heartbeat.utils');
 const connectionUtils = require('./lib/connection.utils');
+const dbCleaner = require('./lib/clean.utils');
 
 module.exports = {
-  heartbeatCheck,
-  connectionUtils
+  connectionUtils,
+  dbCleaner,
+  heartbeatChecker,
 };
