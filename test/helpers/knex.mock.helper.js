@@ -55,6 +55,10 @@ class MockKnex {
     return this;
   }
 
+  destroy() {
+    return Promise.resolve();
+  }
+
   catch(catchBlock) {
     this.catchBlock = catchBlock;
     return this;
@@ -65,6 +69,14 @@ class ThrowingMockKnex extends MockKnex {
   then() {
     const result = new Promise(() => {
       throw new Error('Stub exception');
+    }).catch(this.catchBlock);
+
+    return result;
+  }
+
+  destroy() {
+    const result = new Promise(() => {
+      throw new Error('Stub destroy exception');
     }).catch(this.catchBlock);
 
     return result;
