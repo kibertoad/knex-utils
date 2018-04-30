@@ -4,7 +4,7 @@ const TEST_CONFIG = {
     host: 'dummy',
     user: 'dummy',
     password: 'dummy',
-    database: 'dummy',
+    database: 'dummy'
   },
 
   acquireConnectionTimeout: 1000,

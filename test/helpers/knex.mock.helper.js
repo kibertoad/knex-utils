@@ -2,7 +2,7 @@
 
 class MockKnex {
   constructor() {
-    this.catchBlock = (e) => {
+    this.catchBlock = e => {
       throw e;
     };
   }
@@ -85,7 +85,7 @@ class ThrowingMockKnex extends MockKnex {
 
 class ResolvingMockKnex extends MockKnex {
   then(fn) {
-    const result = new Promise((resolve) => {
+    const result = new Promise(resolve => {
       resolve(true);
     })
       .then(() => fn())
@@ -125,5 +125,8 @@ function stubKnexToResolve(sinon, knex) {
 }
 
 module.exports = {
-  stubKnexToThrow, stubKnexToResolve, ThrowingMockKnex, ResolvingMockKnex
+  stubKnexToThrow,
+  stubKnexToResolve,
+  ThrowingMockKnex,
+  ResolvingMockKnex
 };

@@ -7,10 +7,9 @@ require('../helpers/test.bootstrap');
 
 describe('connection.utils', () => {
   it('getKnexInstance - happy path', () => {
-    const initStub = global.sinon.stub(connectionUtils, '_initKnexInstance')
-      .callsFake(() => {
-        return new knexMockHelper.ResolvingMockKnex();
-      });
+    const initStub = global.sinon.stub(connectionUtils, '_initKnexInstance').callsFake(() => {
+      return new knexMockHelper.ResolvingMockKnex();
+    });
     const registerStub = global.sinon.stub(connectionUtils, 'registerKnexInstance');
 
     const knex = connectionUtils.getKnexInstance(TEST_CONFIG);
@@ -43,26 +42,31 @@ describe('connection.utils', () => {
   });
 
   it('logAllErrors - happy path', async () => {
-    const errors = [{
-      knex: {
-        client: {
-          config: {
-            client: 'postgres',
-            connection: {
-              host: 'localhost',
-              user: 'postgres',
-              password: 'dummyPass',
-              database: 'dbName'
+    const errors = [
+      {
+        knex: {
+          client: {
+            config: {
+              client: 'postgres',
+              connection: {
+                host: 'localhost',
+                user: 'postgres',
+                password: 'dummyPass',
+                database: 'dbName'
+              }
             }
           }
-        }
-      },
-      cause: { message: 'error message' }
-    }];
+        },
+        cause: { message: 'error message' }
+      }
+    ];
     const loggerMock = global.sinon.mock(console);
-    loggerMock.expects('error')
+    loggerMock
+      .expects('error')
       .exactly(1)
-      .withArgs('Failed to close DB connection (postgres@localhost:dbName): ', { message: 'error message' });
+      .withArgs('Failed to close DB connection (postgres@localhost:dbName): ', {
+        message: 'error message'
+      });
     connectionUtils.logAllClosingErrors(errors, loggerMock.object);
 
     loggerMock.verify();
