@@ -31,7 +31,15 @@ class MockKnex {
     return this;
   }
 
+  andWhere() {
+    return this;
+  }
+
   where() {
+    return this;
+  }
+
+  whereBetween() {
     return this;
   }
 
@@ -101,7 +109,10 @@ function initKnexStubs(sinon, knex, mockKnex) {
   sinon.stub(knex, 'select').callsFake(mockKnexFn);
   sinon.stub(knex, 'del').callsFake(mockKnexFn);
   sinon.stub(knex, 'update').callsFake(mockKnexFn);
+  sinon.stub(knex, 'andWhere').callsFake(mockKnexFn);
   sinon.stub(knex, 'where').callsFake(mockKnexFn);
+  sinon.stub(knex, 'whereIn').callsFake(mockKnexFn);
+  sinon.stub(knex, 'whereBetween').callsFake(mockKnexFn);
   sinon.stub(knex, 'from').callsFake(mockKnexFn);
   sinon.stub(knex, 'raw').callsFake(mockKnexFn);
 }
@@ -124,7 +135,14 @@ function stubKnexToResolve(sinon, knex) {
   initKnexStubs(sinon, knex, new ResolvingMockKnex());
 }
 
+function getKnexStub(sinon) {
+  const mockKnex = new ResolvingMockKnex();
+  initKnexStubs(sinon, mockKnex, mockKnex);
+  return mockKnex;
+}
+
 module.exports = {
+  getKnexStub,
   stubKnexToThrow,
   stubKnexToResolve,
   ThrowingMockKnex,

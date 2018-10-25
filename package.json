@@ -36,6 +36,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^5.7.0",
+    "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-prettier": "^3.0.0",
     "knex": "^0.15.2",
     "mocha": "^5.2.0",
@@ -46,7 +47,7 @@
   "nyc": {
     "description": "test coverage",
     "include": [
-      "src/**"
+      "lib/**"
     ],
     "reporter": [
       "text"
@@ -54,9 +55,9 @@
     "cache": true,
     "all": true,
     "check-coverage": true,
-    "lines": 50,
-    "statements": 50,
-    "functions": 66,
-    "branches": 33
+    "lines": 66,
+    "statements": 66,
+    "functions": 60,
+    "branches": 45
   }
 }
