@@ -2,6 +2,8 @@
 /coverage
 /mochawesome-reports
 
+mocha.opts
+
 # VS Code
 launch.json
 .vscode
