@@ -5,18 +5,20 @@ const knexMockHelper = require('../helpers/knex.mock.helper');
 require('../helpers/test.bootstrap');
 
 describe('heartbeat.utils', () => {
-  it('Get a DB error while connecting', async () => {
+  it('Get a DB error while connecting', () => {
     const knex = new knexMockHelper.ThrowingMockKnex();
-    const checkResult = await heartbeatUtils.checkHeartbeat(knex);
-    assert.equal(checkResult.isOk, false);
-    assert.equal(checkResult.error.message, 'Stub exception');
+    return heartbeatUtils.checkHeartbeat(knex).then(checkResult => {
+      assert.equal(checkResult.isOk, false);
+      assert.equal(checkResult.error.message, 'Stub exception');
+    });
   });
 
-  it('Do not get a DB error while connecting', async () => {
+  it('Do not get a DB error while connecting', () => {
     const knex = new knexMockHelper.ResolvingMockKnex();
-    const checkResult = await heartbeatUtils.checkHeartbeat(knex);
-    assert.deepEqual(checkResult, {
-      isOk: true
+    return heartbeatUtils.checkHeartbeat(knex).then(checkResult => {
+      assert.deepEqual(checkResult, {
+        isOk: true
+      });
     });
   });
 });

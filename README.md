@@ -2,6 +2,10 @@
 
 Common utilities for knex.js
 
+  [![NPM Version][npm-image]][npm-url]
+  [![NPM Downloads][downloads-image]][downloads-url]
+  [![Linux Build][travis-image]][travis-url]
+
 ** Connection init example
 
 ```js
@@ -79,3 +83,10 @@ module.exports = {
 	getAppAsync
 };
 ```
+
+[npm-image]: https://img.shields.io/npm/v/knex-utils.svg
+[npm-url]: https://npmjs.org/package/knex-utils
+[downloads-image]: https://img.shields.io/npm/dm/knex-utils.svg
+[downloads-url]: https://npmjs.org/package/knex-utils
+[travis-image]: https://img.shields.io/travis/kibertoad/knex-utils/master.svg?label=linux
+[travis-url]: https://travis-ci.org/kibertoad/knex-utils
