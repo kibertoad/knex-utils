@@ -19,7 +19,7 @@ describe('connection.utils', () => {
     assert.instanceOf(knex, knexMockHelper.ResolvingMockKnex);
   });
 
-  it('closeAllInstances - happy path', async () => {
+  it('closeAllInstances - happy path', () => {
     const knex = new knexMockHelper.ResolvingMockKnex();
     connectionUtils.registerKnexInstance(knex);
     return connectionUtils.closeAllInstances().then(errors => {
@@ -28,13 +28,13 @@ describe('connection.utils', () => {
     });
   });
 
-  it('closeAllInstances - one of knex instances throws', async () => {
+  it('closeAllInstances - one of knex instances throws', () => {
     const invalidKnex = new knexMockHelper.ThrowingMockKnex();
     const correctKnex = new knexMockHelper.ResolvingMockKnex();
 
     connectionUtils.registerKnexInstance(invalidKnex);
     connectionUtils.registerKnexInstance(correctKnex);
-    connectionUtils.closeAllInstances().then(errors => {
+    return connectionUtils.closeAllInstances().then(errors => {
       assert.equal(errors.length, 1);
       assert.equal(connectionUtils.getRegistry().length, 0);
       const [error] = errors;
@@ -43,7 +43,7 @@ describe('connection.utils', () => {
     });
   });
 
-  it('logAllErrors - happy path', async () => {
+  it('logAllErrors - happy path', () => {
     const errors = [
       {
         knex: {
