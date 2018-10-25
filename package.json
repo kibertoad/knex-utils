@@ -28,20 +28,20 @@
   "homepage": "https://github.com/kibertoad/knex-utils",
   "dependencies": {
     "knex-tablecleaner": "^3.1.0",
-    "validation-utils": "^2.3.0"
+    "validation-utils": "^2.8.0"
   },
   "peerDependencies": {
     "knex": " >= 0.14.5"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "eslint": "^4.19.1",
-    "eslint-plugin-prettier": "^2.6.0",
-    "knex": "^0.14.6",
-    "mocha": "^5.1.1",
-    "nyc": "^11.7.1",
-    "prettier": "^1.12.1",
-    "sinon": "^5.0.1"
+    "chai": "^4.2.0",
+    "eslint": "^5.7.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "knex": "^0.15.2",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "prettier": "^1.14.3",
+    "sinon": "^7.1.0"
   },
   "nyc": {
     "description": "test coverage",
@@ -49,11 +49,10 @@
       "src/**"
     ],
     "reporter": [
-      "html"
+      "text"
     ],
     "cache": true,
     "all": true,
-    "report-dir": "./build/reports/coverage",
     "check-coverage": true,
     "lines": 50,
     "statements": 50,
