@@ -4,3 +4,4 @@ coverage/*
 .idea/
 nohup.out
 .eslintcache
+.nyc_output/
