@@ -22,9 +22,10 @@ describe('connection.utils', () => {
   it('closeAllInstances - happy path', async () => {
     const knex = new knexMockHelper.ResolvingMockKnex();
     connectionUtils.registerKnexInstance(knex);
-    const errors = await connectionUtils.closeAllInstances();
-    assert.equal(errors.length, 0);
-    assert.equal(connectionUtils.getRegistry().length, 0);
+    return connectionUtils.closeAllInstances().then(errors => {
+      assert.equal(errors.length, 0);
+      assert.equal(connectionUtils.getRegistry().length, 0);
+    });
   });
 
   it('closeAllInstances - one of knex instances throws', async () => {
@@ -33,12 +34,13 @@ describe('connection.utils', () => {
 
     connectionUtils.registerKnexInstance(invalidKnex);
     connectionUtils.registerKnexInstance(correctKnex);
-    const errors = await connectionUtils.closeAllInstances();
-    assert.equal(errors.length, 1);
-    assert.equal(connectionUtils.getRegistry().length, 0);
-    const [error] = errors;
-    assert.equal(error.cause.message, 'Stub destroy exception');
-    assert.isDefined(error.knex);
+    connectionUtils.closeAllInstances().then(errors => {
+      assert.equal(errors.length, 1);
+      assert.equal(connectionUtils.getRegistry().length, 0);
+      const [error] = errors;
+      assert.equal(error.cause.message, 'Stub destroy exception');
+      assert.isDefined(error.knex);
+    });
   });
 
   it('logAllErrors - happy path', async () => {
