@@ -1,6 +1,6 @@
 {
   "name": "knex-utils",
-  "version": "4.1.4",
+  "version": "4.1.5",
   "description": "knex.js utils",
   "main": "src/index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/kibertoad/knex-utils",
   "dependencies": {
-    "knex-tablecleaner": "^3.1.0",
+    "knex-tablecleaner": "^3.1.1",
     "validation-utils": "^2.8.0"
   },
   "peerDependencies": {
@@ -35,14 +35,14 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^5.7.0",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "knex": "^0.15.2",
+    "eslint": "^5.13.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "knex": "^0.16.3",
     "mocha": "^5.2.0",
-    "nyc": "^13.1.0",
-    "prettier": "^1.14.3",
-    "sinon": "^7.1.0"
+    "nyc": "^13.2.0",
+    "prettier": "^1.16.4",
+    "sinon": "^7.2.3"
   },
   "nyc": {
     "description": "test coverage",
