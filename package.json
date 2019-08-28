@@ -28,7 +28,7 @@
   "homepage": "https://github.com/kibertoad/knex-utils",
   "dependencies": {
     "knex-tablecleaner": "^3.1.1",
-    "validation-utils": "^3.1.0"
+    "validation-utils": "^3.1.1"
   },
   "peerDependencies": {
     "knex": " >= 0.14.5"
