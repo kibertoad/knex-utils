@@ -4,14 +4,14 @@ const TEST_CONFIG = {
     host: 'dummy',
     user: 'dummy',
     password: 'dummy',
-    database: 'dummy'
+    database: 'dummy',
   },
 
   acquireConnectionTimeout: 1000,
   pool: {
     min: 1,
-    max: 1
-  }
+    max: 1,
+  },
 };
 
 module.exports = TEST_CONFIG;

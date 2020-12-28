@@ -22,7 +22,7 @@ describe('connection.utils', () => {
   it('closeAllInstances - happy path', () => {
     const knex = new knexMockHelper.ResolvingMockKnex();
     connectionUtils.registerKnexInstance(knex);
-    return connectionUtils.closeAllInstances().then(errors => {
+    return connectionUtils.closeAllInstances().then((errors) => {
       assert.equal(errors.length, 0);
       assert.equal(connectionUtils.getRegistry().length, 0);
     });
@@ -34,7 +34,7 @@ describe('connection.utils', () => {
 
     connectionUtils.registerKnexInstance(invalidKnex);
     connectionUtils.registerKnexInstance(correctKnex);
-    return connectionUtils.closeAllInstances().then(errors => {
+    return connectionUtils.closeAllInstances().then((errors) => {
       assert.equal(errors.length, 1);
       assert.equal(connectionUtils.getRegistry().length, 0);
       const [error] = errors;
@@ -54,20 +54,20 @@ describe('connection.utils', () => {
                 host: 'localhost',
                 user: 'postgres',
                 password: 'dummyPass',
-                database: 'dbName'
-              }
-            }
-          }
+                database: 'dbName',
+              },
+            },
+          },
         },
-        cause: { message: 'error message' }
-      }
+        cause: { message: 'error message' },
+      },
     ];
     const loggerMock = global.sinon.mock(console);
     loggerMock
       .expects('error')
       .exactly(1)
       .withArgs('Failed to close DB connection (postgres@localhost:dbName): ', {
-        message: 'error message'
+        message: 'error message',
       });
     connectionUtils.logAllClosingErrors(errors, loggerMock.object);
 

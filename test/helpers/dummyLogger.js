@@ -7,7 +7,7 @@ const dummyLogger = {
   info: console.log,
   warn: console.log,
   error: console.log,
-  fatal: console.log
+  fatal: console.log,
 };
 
 module.exports = dummyLogger;
