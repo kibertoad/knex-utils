@@ -1,6 +1,6 @@
 {
   "name": "knex-utils",
-  "version": "4.1.7",
+  "version": "4.1.8",
   "description": "knex.js utils",
   "main": "src/index.js",
   "scripts": {
@@ -49,9 +49,6 @@
     "include": [
       "lib/**"
     ],
-    "reporter": [
-      "text"
-    ],
     "cache": true,
     "all": true,
     "check-coverage": true,
@@ -59,5 +56,21 @@
     "statements": 66,
     "functions": 60,
     "branches": 45
-  }
+  },
+  "keywords": [
+    "knex",
+    "utils",
+    "heartbeat",
+    "clean",
+    "where",
+    "query",
+    "build",
+    "builder"
+  ],
+  "files": [
+    "lib/*",
+    "index.js",
+    "LICENSE",
+    "README.md"
+  ]
 }

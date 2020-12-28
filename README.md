@@ -6,7 +6,7 @@ Common utilities for knex.js
 [![npm downloads](https://img.shields.io/npm/dm/knex-utils.svg)](https://npmjs.org/package/knex-utils)
 ![](https://github.com/kibertoad/knex-utils/workflows/unit-tests/badge.svg)
 
-** Connection init example
+##Connection init example
 
 ```js
 const config = require('config');
@@ -50,7 +50,7 @@ module.exports = {
 };
 ```
 
-** Hearbeat usage example
+##Hearbeat usage example
 
 ```js
 const { heartbeatChecker } = require('knex-utils');
