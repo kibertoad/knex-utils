@@ -5,5 +5,5 @@ const dbCleaner = require('./lib/clean.utils');
 module.exports = {
   connectionUtils,
   dbCleaner,
-  heartbeatChecker
+  heartbeatChecker,
 };

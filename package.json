@@ -8,7 +8,7 @@
     "test": "mocha --opts \"./mocha.opts\" test/**/*.spec.js",
     "test:coverage": "nyc npm test",
     "lint": "eslint .",
-    "prettier": "prettier --write \"{lib,test}/**/*.{js,ts}\""
+    "prettier": "prettier --write \"{lib,test}/**/*.{js,ts}\" index.js"
   },
   "license": "MIT",
   "maintainers": [
