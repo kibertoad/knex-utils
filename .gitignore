@@ -5,3 +5,4 @@ coverage/*
 nohup.out
 .eslintcache
 .nyc_output/
+package-lock.json

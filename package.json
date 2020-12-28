@@ -4,11 +4,11 @@
   "description": "knex.js utils",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint .",
-    "prettier": "prettier --write \"{lib,test}/**/*.{js,ts}\"",
+    "coveralls": "nyc report --reporter=lcov",
     "test": "mocha --opts \"./mocha.opts\" test/**/*.spec.js",
     "test:coverage": "nyc npm test",
-    "test:ci": "npm run lint && nyc mocha --opts \"./mocha.opts\" test"
+    "lint": "eslint .",
+    "prettier": "prettier --write \"{lib,test}/**/*.{js,ts}\""
   },
   "license": "MIT",
   "maintainers": [
@@ -27,21 +27,21 @@
   },
   "homepage": "https://github.com/kibertoad/knex-utils",
   "dependencies": {
-    "knex-tablecleaner": "^3.1.2",
-    "validation-utils": "^4.0.2"
+    "knex-tablecleaner": "^4.1.0",
+    "validation-utils": "^6.0.0"
   },
   "peerDependencies": {
     "knex": " >= 0.14.5"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^6.5.1",
-    "eslint-config-prettier": "^6.4.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "knex": "^0.19.5",
-    "mocha": "^6.2.2",
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "knex": "0.19.5",
+    "mocha": "^6.2.3",
     "nyc": "^14.1.1",
-    "prettier": "^1.18.2",
+    "prettier": "^2.2.1",
     "sinon": "^7.5.0"
   },
   "nyc": {
